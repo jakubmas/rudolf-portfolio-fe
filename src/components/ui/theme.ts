@@ -27,6 +27,4 @@ const typography= {
   },
 }
 
-const themeName = 'San Marino Razzmatazz Sugar Gliders';
-
-export default createMuiTheme({ palette, typography, themeName });
+export default createMuiTheme({ palette, typography });

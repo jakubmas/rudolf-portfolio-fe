@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) => {
       }
     },
     logo: {
-      fontSize: '12px',
+      fontSize: '0.7rem',
       lineHeight: '1'
     },
     tabsContainer: {
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) => {
       minWidth: 10
     },
     languageToggler: {
-      fontSize: '12px'
+      fontSize: '0.7rem'
     },
     bottomLine: {
       border: '1px solid #707070',
