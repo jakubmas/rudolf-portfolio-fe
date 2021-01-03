@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+
 import { makeStyles } from '@material-ui/styles'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
 import { Typography } from '@material-ui/core'
-
+import useMediaQuery from '@material-ui/core/useMediaQuery'
+import { useTheme } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
-// import Tabs from '@material-ui/core/Tabs'
-// import Tab from '@material-ui/core/Tab'
 import Button from '@material-ui/core/Button'
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
+import IconButton from '@material-ui/core/IconButton'
+import MenuIcon from '@material-ui/icons/Menu'
+import CloseIcon from '@material-ui/icons/Close'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
 
 interface Tab {
   to: string
@@ -29,8 +36,8 @@ const useStyles = makeStyles((theme: Theme) => {
       margin: 0
     },
     toolbarContainer: {
-      marginLeft: '10%',
-      marginRight: '10%',
+      marginLeft: '5%',
+      marginRight: '5%',
       '& .MuiTabs-flexContainer': {
         justifyContent: 'space-evenly'
       }
@@ -54,7 +61,8 @@ const useStyles = makeStyles((theme: Theme) => {
       fontSize: '0.7rem'
     },
     bottomLine: {
-      border: '1px solid #707070',
+      borderTop: '1px solid',
+      borderColor: theme.palette.text.primary,
       width: '90%',
       margin: '0 auto',
       borderRadius: '200px'
@@ -65,10 +73,11 @@ const useStyles = makeStyles((theme: Theme) => {
       justifyContent: 'space-evenly'
     },
     tabActive: {
-      border: '1px solid #707070',
+      borderTop: '1px solid',
+      borderColor: theme.palette.text.primary,
       width: '120%'
     },
-    tabDisactive: {
+    tabInactive: {
       border: '1px solid transparent',
       width: '120%'
     },
@@ -77,13 +86,88 @@ const useStyles = makeStyles((theme: Theme) => {
       flexDirection: 'column',
       alignItems: 'center',
       boxSizing: 'border-box'
+    },
+    drawer: {
+      backgroundColor: theme.palette.background.default,
+      width: '30vw'
+    },
+    drawerExtraSmall: {
+      backgroundColor: theme.palette.background.default,
+      width: '100vw'
+    },
+    drawerItem: {
+      ...theme.typography,
+      display: 'flex',
+      paddingBottom: '1.2rem',
+      justifyContent: 'center',
+      fontSize: '1.2rem',
+      fontWeight: 300
+    },
+    drawerItemExtraSmall: {
+      ...theme.typography,
+      display: 'flex',
+      justifyContent: 'center',
+      fontSize: '3rem',
+      fontWeight: 300
+    },
+    drawerListContainer: {
+      height: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between'
+    },
+    drawerLogoContainerExtraSmall: {
+      display: 'flex',
+      flexDirection: 'column',
+      '&:hover': {
+        backgroundColor: 'transparent'
+      },
+      '& .MuiTypography-root': {
+        fontSize: '1.5rem',
+        fontWeight: 300
+      }
+    },
+    drawerLogoContainer: {
+      justifyContent: 'center',
+      '& .MuiTypography-root': {
+        padding: '1rem',
+        fontSize: '1.1rem',
+        fontWeight: 300
+      }
+    },
+    menuButton: {
+      '&:hover': {
+        backgroundColor: 'transparent'
+      }
+    },
+    drawerCloseButton: {
+      alignSelf: 'start',
+      paddingBottom: '5vh',
+      '&:hover': {
+        backgroundColor: 'transparent'
+      }
+    },
+    drawerLanguageToggler: {
+      marginBottom: '10vh',
+      justifyContent: 'center',
+      '& .MuiTypography-root': {
+        fontSize: '1.1rem',
+        fontWeight: 300
+      }
     }
   }
 })
 
 export default function Header() {
+  const theme = useTheme()
   const classes = useStyles()
-  const [tab, setTab] = useState<Tab[]>([
+
+  const iOS =
+    (process as any).browser && /iPad|iPhone|iPod/.test(navigator.userAgent)
+  const matchesSmall = useMediaQuery(theme.breakpoints.down('sm'))
+  const matchesExtraSmall = useMediaQuery(theme.breakpoints.down('xs'))
+
+  const [tabs, setTabs] = useState<Tab[]>([
     {
       to: '/work',
       label: 'Work',
@@ -100,81 +184,181 @@ export default function Header() {
       active: false
     }
   ])
+  const [openDrawer, setOpenDrawer] = useState(false)
 
   const handleChange = (index: number, activeTab: Tab) => {
-    let newArray = [...tab]
+    let newArray = [...tabs]
     newArray.forEach((element) => {
       element.active = false
     })
     newArray[index] = { ...activeTab, active: true }
-    setTab(newArray)
+    setTabs(newArray)
+  }
+
+  const handleDisacitveTabs = () => {
+    let newArray = [...tabs]
+    newArray.forEach((element) => {
+      element.active = false
+    })
+    setTabs(newArray)
   }
 
   useEffect(() => {
-    console.log(window.location.pathname)
-    let newArray = [...tab]
+    let newArray = [...tabs]
     newArray.forEach((element) => {
       if (element.to === window.location.pathname) element.active = true
     })
-    setTab(newArray)
+    setTabs(newArray)
   }, [])
 
-  const renderTabs = (tabs: Tab[]) => {
+  useEffect(() => {
+    if (!matchesSmall && !matchesExtraSmall) {
+      setOpenDrawer(false)
+    }
+  }, [matchesExtraSmall, matchesSmall])
+
+  const renderTabs = () => {
     return tabs.map((tab, i) => (
       <div className={classes.tabButtonContainer} key={tab.label}>
         <Button
+          disableRipple
           className={classes.tab}
           component={Link}
           to={tab.to}
-          disableRipple
           onClick={() => handleChange(i, tab)}
         >
           {tab.label}
         </Button>
         {
           <div
-            className={tab.active ? classes.tabActive : classes.tabDisactive}
+            className={tab.active ? classes.tabActive : classes.tabInactive}
           />
         }
       </div>
     ))
   }
 
+  const logoButton = (
+    <Button
+      disableRipple
+      component={Link}
+      to="/"
+      className={classes.logoContainer}
+      onClick={() => {
+        handleDisacitveTabs()
+        setOpenDrawer(false)
+      }}
+    >
+      <Typography component="p" className={classes.logo}>
+        Rudolf
+        <br />
+        Maslowski
+      </Typography>
+    </Button>
+  )
+
+  const languageToggler = (
+    <Typography component="p" className={classes.languageToggler}>
+      PL/<strong>EN</strong>
+    </Typography>
+  )
+
+  const largeHeader = (
+    <>
+      {logoButton}
+      <div className={classes.tabsContainer}>{renderTabs()}</div>
+      {languageToggler}
+    </>
+  )
+
+  const drawer = (
+    <>
+      <SwipeableDrawer
+        disableBackdropTransition={!iOS}
+        disableDiscovery={iOS}
+        open={openDrawer}
+        onClose={() => setOpenDrawer(false)}
+        onOpen={() => setOpenDrawer(true)}
+        classes={{
+          paper: matchesExtraSmall ? classes.drawerExtraSmall : classes.drawer
+        }}
+      >
+        <div>
+          <List disablePadding className={classes.drawerListContainer}>
+            <ListItem
+              className={
+                matchesExtraSmall
+                  ? classes.drawerLogoContainerExtraSmall
+                  : classes.drawerLogoContainer
+              }
+            >
+              {matchesExtraSmall && (
+                <IconButton
+                  className={classes.drawerCloseButton}
+                  onClick={() => setOpenDrawer(false)}
+                  disableRipple
+                >
+                  <CloseIcon />
+                </IconButton>
+              )}
+              {logoButton}
+            </ListItem>
+            <div>
+              {tabs.map((tab, i) => (
+                <ListItem
+                  key={`${tab}${i}`}
+                  button
+                  component={Link}
+                  to={tab.to}
+                  selected={tab.active}
+                  onClick={() => {
+                    setOpenDrawer(false)
+                    handleChange(i, tab)
+                  }}
+                >
+                  <ListItemText
+                    className={
+                      matchesExtraSmall
+                        ? classes.drawerItemExtraSmall
+                        : classes.drawerItem
+                    }
+                    disableTypography
+                  >
+                    {tab.label}
+                  </ListItemText>
+                </ListItem>
+              ))}
+            </div>
+            <ListItem className={classes.drawerLanguageToggler}>
+              {languageToggler}
+            </ListItem>
+          </List>
+        </div>
+      </SwipeableDrawer>
+      <IconButton
+        className={classes.menuButton}
+        onClick={() => setOpenDrawer(!openDrawer)}
+        disableRipple
+      >
+        <MenuIcon />
+      </IconButton>
+      {logoButton}
+    </>
+  )
+
   return (
-    <React.Fragment>
+    <>
       <AppBar
         position="static"
         elevation={0}
         className={classes.headerContainer}
       >
         <Toolbar disableGutters className={classes.toolbarContainer}>
-          <Button
-            component={Link}
-            to="/"
-            disableRipple
-            className={classes.logoContainer}
-            onClick={() =>
-              handleChange(-1, {
-                to: '/',
-                label: '',
-                active: false
-              })
-            }
-          >
-            <Typography component="p" className={classes.logo}>
-              Rudolf
-              <br />
-              Maslowski
-            </Typography>
-          </Button>
-          <div className={classes.tabsContainer}>{renderTabs(tab)}</div>
-          <Typography component="p" className={classes.languageToggler}>
-            PL/<strong>EN</strong>
-          </Typography>
+          {matchesSmall ? drawer : largeHeader}
         </Toolbar>
-        <div className={classes.bottomLine} />
+        {!matchesExtraSmall && <div className={classes.bottomLine} />}
       </AppBar>
       <Toolbar />
-    </React.Fragment>
+    </>
   )
 }
