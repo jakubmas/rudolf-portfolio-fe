@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import theme from './ui/theme'
 
 import Header from './ui/Header'
+import Footer from './ui/Footer'
 
 function App() {
   return (
@@ -11,15 +12,44 @@ function App() {
       <BrowserRouter>
         <Header />
         <Switch>
-          <Route exact path="/" component={() => <div>Elo home</div>} />
-          <Route exact path="/work" component={() => <div>Elo work</div>} />
-          <Route exact path="/about" component={() => <div>Elo about</div>} />
+          <Route
+            exact
+            path="/"
+            component={() => (
+              <div style={{ minHeight: 'calc(100vh - 64px - 64px)' }}>
+                Elo home
+              </div>
+            )}
+          />
+          <Route
+            exact
+            path="/work"
+            component={() => (
+              <div style={{ minHeight: 'calc(100vh - 64px - 64px)' }}>
+                Elo work
+              </div>
+            )}
+          />
+          <Route
+            exact
+            path="/about"
+            component={() => (
+              <div style={{ minHeight: 'calc(100vh - 64px - 64px)' }}>
+                Elo about
+              </div>
+            )}
+          />
           <Route
             exact
             path="/contact"
-            component={() => <div>Elo contact</div>}
+            component={() => (
+              <div style={{ minHeight: 'calc(100vh - 64px - 64px)' }}>
+                Elo contact
+              </div>
+            )}
           />
         </Switch>
+        <Footer />
       </BrowserRouter>
     </ThemeProvider>
   )
