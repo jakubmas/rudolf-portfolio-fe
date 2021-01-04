@@ -89,11 +89,10 @@ const useStyles = makeStyles((theme: Theme) => {
     },
     drawer: {
       backgroundColor: theme.palette.background.default,
-      width: '30vw'
-    },
-    drawerExtraSmall: {
-      backgroundColor: theme.palette.background.default,
-      width: '100vw'
+      width: '30vw',
+      [theme.breakpoints.down('xs')]: {
+        width: '100vw'
+      }
     },
     drawerItem: {
       ...theme.typography,
@@ -101,14 +100,11 @@ const useStyles = makeStyles((theme: Theme) => {
       paddingBottom: '1.2rem',
       justifyContent: 'center',
       fontSize: '1.2rem',
-      fontWeight: 300
-    },
-    drawerItemExtraSmall: {
-      ...theme.typography,
-      display: 'flex',
-      justifyContent: 'center',
-      fontSize: '3rem',
-      fontWeight: 300
+      fontWeight: 300,
+      [theme.breakpoints.down('xs')]: {
+        width: '100vw',
+        fontSize: '2rem'
+      }
     },
     drawerListContainer: {
       height: '100vh',
@@ -116,23 +112,23 @@ const useStyles = makeStyles((theme: Theme) => {
       flexDirection: 'column',
       justifyContent: 'space-between'
     },
-    drawerLogoContainerExtraSmall: {
-      display: 'flex',
-      flexDirection: 'column',
-      '&:hover': {
-        backgroundColor: 'transparent'
-      },
-      '& .MuiTypography-root': {
-        fontSize: '1.5rem',
-        fontWeight: 300
-      }
-    },
     drawerLogoContainer: {
       justifyContent: 'center',
       '& .MuiTypography-root': {
         padding: '1rem',
         fontSize: '1.1rem',
         fontWeight: 300
+      },
+      [theme.breakpoints.down('xs')]: {
+        display: 'flex',
+        flexDirection: 'column',
+        '&:hover': {
+          backgroundColor: 'transparent'
+        },
+        '& .MuiTypography-root': {
+          fontSize: '1.5rem',
+          fontWeight: 300
+        }
       }
     },
     menuButton: {
@@ -280,18 +276,12 @@ export default function Header() {
         onClose={() => setOpenDrawer(false)}
         onOpen={() => setOpenDrawer(true)}
         classes={{
-          paper: matchesExtraSmall ? classes.drawerExtraSmall : classes.drawer
+          paper: classes.drawer
         }}
       >
         <div>
           <List disablePadding className={classes.drawerListContainer}>
-            <ListItem
-              className={
-                matchesExtraSmall
-                  ? classes.drawerLogoContainerExtraSmall
-                  : classes.drawerLogoContainer
-              }
-            >
+            <ListItem className={classes.drawerLogoContainer}>
               {matchesExtraSmall && (
                 <IconButton
                   className={classes.drawerCloseButton}
@@ -317,11 +307,7 @@ export default function Header() {
                   }}
                 >
                   <ListItemText
-                    className={
-                      matchesExtraSmall
-                        ? classes.drawerItemExtraSmall
-                        : classes.drawerItem
-                    }
+                    className={classes.drawerItem}
                     disableTypography
                   >
                     {tab.label}
