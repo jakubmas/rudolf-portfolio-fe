@@ -47,6 +47,7 @@ const useStyles = makeStyles((theme: Theme) => {
       lineHeight: '1'
     },
     logoContainer: {
+      marginLeft: '2rem',
       padding: 0,
       '&:hover': {
         backgroundColor: 'transparent'
@@ -58,6 +59,7 @@ const useStyles = makeStyles((theme: Theme) => {
       minWidth: 10
     },
     languageToggler: {
+      marginRight: '2rem',
       fontSize: '0.7rem'
     },
     bottomLine: {
