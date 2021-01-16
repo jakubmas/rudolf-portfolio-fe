@@ -8,7 +8,15 @@ const useStyles = makeStyles((theme: Theme) => {
   return {
     container: {
       overflow: 'scroll',
-      maxHeight: '70vh'
+      maxHeight: '70vh',
+      [theme.breakpoints.down('sm')]: {
+        overflow: 'auto',
+        maxHeight: '100%'
+      }
+    },
+    containerPaddingEast: {
+      [theme.breakpoints.down('xl')]: { paddingLeft: '7rem' },
+      [theme.breakpoints.down('md')]: { paddingLeft: 0 }
     },
     title: {
       fontSize: '1.2rem',
@@ -17,9 +25,12 @@ const useStyles = makeStyles((theme: Theme) => {
       marginBottom: '3rem',
       width: '100%',
       [theme.breakpoints.down('md')]: {
-        fontSize: '2rem'
+        fontSize: '2rem',
+        paddingTop: '2rem',
+        textAlign: 'center'
       },
       [theme.breakpoints.down('sm')]: {
+        paddingTop: '2rem',
         fontSize: '1.7rem',
         textAlign: 'center'
       }
@@ -30,6 +41,7 @@ const useStyles = makeStyles((theme: Theme) => {
       fontWeight: 100,
       marginRight: '3rem',
       width: '100%',
+      paddingBottom: '2rem',
       [theme.breakpoints.down('md')]: {
         margin: 0
       }
@@ -68,15 +80,19 @@ const useStyles = makeStyles((theme: Theme) => {
 //   }
 // ]
 
-export default function SideContentContainer() {
+export default function SideContentContainer(props: {
+  containerEast?: Boolean
+}) {
   const classes = useStyles()
+
+  const { containerEast } = props
 
   return (
     <Grid
       container
-      justify="center"
-      alignItems="center"
-      className={classes.container}
+      className={`${classes.container} ${
+        containerEast && classes.containerPaddingEast
+      }`}
     >
       <Typography component="h2" className={classes.title}>
         Lorem ipsum dolor sit amet

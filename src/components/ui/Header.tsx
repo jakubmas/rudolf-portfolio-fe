@@ -172,13 +172,13 @@ export default function Header() {
       active: false
     },
     {
-      to: '/contact',
-      label: 'Contact',
+      to: '/about',
+      label: 'About',
       active: false
     },
     {
-      to: '/about',
-      label: 'About',
+      to: '/contact',
+      label: 'Contact',
       active: false
     }
   ])
