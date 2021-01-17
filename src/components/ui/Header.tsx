@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
 
 import { makeStyles } from '@material-ui/styles'
@@ -156,7 +156,7 @@ const useStyles = makeStyles((theme: Theme) => {
   }
 })
 
-export default function Header() {
+export const Header: FunctionComponent = () => {
   const theme = useTheme()
   const classes = useStyles()
 
