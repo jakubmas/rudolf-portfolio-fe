@@ -24,7 +24,7 @@ const typography= {
   ].join(","),
   allVariants: {
     color: '#707070'
-  },
+  }
 }
 
 export default createMuiTheme({ palette, typography });
