@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FunctionComponent } from 'react'
 import { makeStyles } from '@material-ui/styles'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
 
@@ -16,13 +16,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
-export default function Footer() {
+export const Footer: FunctionComponent = () => {
   const classes = useStyles()
 
   return (
     <footer className={classes.footerContainer}>
       <div className={classes.bottomLine} />
-      <div></div>
     </footer>
   )
 }

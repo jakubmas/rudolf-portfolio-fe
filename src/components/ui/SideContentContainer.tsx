@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { FunctionComponent } from 'react'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/styles'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
 import { Typography } from '@material-ui/core'
+import IconButton from '@material-ui/core/IconButton'
+
+import FacebookIcon from '@material-ui/icons/Facebook'
+import InstagramIcon from '@material-ui/icons/Instagram'
+import AlternateEmailIcon from '@material-ui/icons/AlternateEmail'
+// import BehanceIcon from '../../assets/icons/behance-icon.svg'
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
@@ -17,6 +23,13 @@ const useStyles = makeStyles((theme: Theme) => {
     containerPaddingEast: {
       [theme.breakpoints.down('xl')]: { paddingLeft: '7rem' },
       [theme.breakpoints.down('md')]: { paddingLeft: 0 }
+    },
+    containerPaggingWest: {
+      [theme.breakpoints.down('xl')]: {
+        paddingLeft: '3rem',
+        paddingRight: '3rem'
+      },
+      [theme.breakpoints.down('md')]: { padding: 0 }
     },
     title: {
       fontSize: '1.2rem',
@@ -45,6 +58,14 @@ const useStyles = makeStyles((theme: Theme) => {
       [theme.breakpoints.down('md')]: {
         margin: 0
       }
+    },
+    bottomBorder: {
+      width: '90%',
+      margin: '0 auto',
+      borderBottom: `0.5px solid ${theme.palette.text.primary}`
+    },
+    iconsContainer: {
+      paddingLeft: '2rem'
     }
   }
 })
@@ -80,33 +101,41 @@ const useStyles = makeStyles((theme: Theme) => {
 //   }
 // ]
 
-export default function SideContentContainer(props: {
+type SideContentContainerProps = {
   containerEast?: Boolean
-}) {
+  containerWest?: Boolean
+  iconsSection?: Boolean
+}
+
+export const SideContentContainer: FunctionComponent<SideContentContainerProps> = (
+  props
+) => {
   const classes = useStyles()
 
-  const { containerEast } = props
+  const { containerEast, containerWest, iconsSection } = props
 
   return (
-    <Grid
-      container
-      className={`${classes.container} ${
-        containerEast && classes.containerPaddingEast
-      }`}
-    >
-      <Typography component="h2" className={classes.title}>
-        Lorem ipsum dolor sit amet
-      </Typography>
-      <Typography component="p" className={classes.textRegular}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        tincidunt mauris at bibendum pellentesque. Praesent lobortis varius
-        congue. In et nunc et elit ullamcorper aliquam eu sit amet nulla. Nunc
-        tempor mi quis leo interdum suscipit at in lorem. Pellentesque tristique
-        auctor erat, nec aliquet nisi lobortis eget. Duis ultrices pulvinar
-        nunc. Nulla lorem nunc, facilisis at arcu sit amet, aliquet luctus
-        felis.
-      </Typography>
-      {/* <Typography component="p" className={classes.textRegular}>
+    <Grid container style={{ height: '100%' }}>
+      <Grid
+        alignContent="center"
+        container
+        className={`${classes.container} ${
+          containerEast && classes.containerPaddingEast
+        } ${containerWest && classes.containerPaggingWest}`}
+      >
+        <Typography component="h2" className={classes.title}>
+          Lorem ipsum dolor sit amet
+        </Typography>
+        <Typography component="p" className={classes.textRegular}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+          tincidunt mauris at bibendum pellentesque. Praesent lobortis varius
+          congue. In et nunc et elit ullamcorper aliquam eu sit amet nulla. Nunc
+          tempor mi quis leo interdum suscipit at in lorem. Pellentesque
+          tristique auctor erat, nec aliquet nisi lobortis eget. Duis ultrices
+          pulvinar nunc. Nulla lorem nunc, facilisis at arcu sit amet, aliquet
+          luctus felis.
+        </Typography>
+        {/* <Typography component="p" className={classes.textRegular}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
         tincidunt mauris at bibendum pellentesque. Praesent lobortis varius
         congue. In et nunc et elit ullamcorper aliquam eu sit amet nulla. Nunc
@@ -133,6 +162,23 @@ export default function SideContentContainer(props: {
         nunc. Nulla lorem nunc, facilisis at arcu sit amet, aliquet luctus
         felis.
       </Typography> */}
+      </Grid>
+      {iconsSection && (
+        <Grid container>
+          <Grid item className={classes.bottomBorder} />
+          <Grid container direction="row" className={classes.iconsContainer}>
+            <IconButton style={{ backgroundColor: 'transparent' }}>
+              <FacebookIcon />
+            </IconButton>
+            <IconButton style={{ backgroundColor: 'transparent' }}>
+              <InstagramIcon />
+            </IconButton>
+            <IconButton style={{ backgroundColor: 'transparent' }}>
+              <AlternateEmailIcon />
+            </IconButton>
+          </Grid>
+        </Grid>
+      )}
     </Grid>
   )
 }
