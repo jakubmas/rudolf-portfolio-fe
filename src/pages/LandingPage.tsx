@@ -5,7 +5,7 @@ import { Typography } from '@material-ui/core'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 
-import { LayoutContainer, LayoutCenterContainer } from '../containers/Layout'
+import { LayoutContainer, LayoutCenterItem } from '../containers/Layout'
 import { SideContentContainer } from '../components/ui/SideContentContainer'
 import { ImageContainer } from '../components/ui/ImageContainer'
 
@@ -32,8 +32,8 @@ export const LandingPage: FunctionComponent = () => {
   const matchesMedium = useMediaQuery(theme.breakpoints.down('md'))
 
   return (
-    <LayoutContainer>
-      <LayoutCenterContainer columnsNumber={4}>
+    <LayoutContainer breakdownPoint="md">
+      <LayoutCenterItem breakdownPoint="md" columnsNumber={4}>
         <Typography
           variant="h2"
           component="h2"
@@ -43,16 +43,16 @@ export const LandingPage: FunctionComponent = () => {
           <br />
           MASLOWSKI
         </Typography>
-      </LayoutCenterContainer>
-      <LayoutCenterContainer columnsNumber={4}>
+      </LayoutCenterItem>
+      <LayoutCenterItem breakdownPoint="md" columnsNumber={4}>
         <ImageContainer
           srcImage={landingPagePhoto}
           altImage="Landing Page photography"
         />
-      </LayoutCenterContainer>
-      <LayoutCenterContainer columnsNumber={4}>
+      </LayoutCenterItem>
+      <LayoutCenterItem breakdownPoint="md" columnsNumber={4}>
         <SideContentContainer />
-      </LayoutCenterContainer>
+      </LayoutCenterItem>
     </LayoutContainer>
   )
 }

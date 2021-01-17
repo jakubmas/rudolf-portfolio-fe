@@ -8,6 +8,7 @@ import { Header } from '../components/ui/Header'
 import { Footer } from '../components/ui/Footer'
 import { LandingPage } from './LandingPage'
 import { About } from './About'
+import { Work } from './Work'
 import { ContactPage } from './ContactPage'
 
 function App() {
@@ -20,15 +21,7 @@ function App() {
         <Switch>
           <Route exact path="/" render={() => <LandingPage />} />
           <Route exact path="/about" render={() => <About />} />
-          <Route
-            exact
-            path="/work"
-            component={() => (
-              <div style={{ minHeight: 'calc(100vh - 64px - 64px)' }}>
-                Elo work
-              </div>
-            )}
-          />
+          <Route exact path="/work" render={() => <Work />} />
           <Route exact path="/contact" render={() => <ContactPage />} />
         </Switch>
         {!matchesSmall && <Footer />}

@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/styles'
 import { useTheme } from '@material-ui/core/styles'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
 import { Grid, GridSize } from '@material-ui/core'
+import { Breakpoint } from '@material-ui/core/styles/createBreakpoints'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -12,8 +13,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: '0 5%',
     [theme.breakpoints.down('md')]: {
       display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center'
+      alignItems: 'center'
     },
     [theme.breakpoints.down('sm')]: {
       display: 'flex',
@@ -31,32 +31,44 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
-export const LayoutContainer: FunctionComponent = ({ children }) => {
+type LayoutContainerProps = {
+  breakdownPoint: Breakpoint
+  layoutClass?: string
+}
+
+export const LayoutContainer: FunctionComponent<LayoutContainerProps> = ({
+  breakdownPoint,
+  layoutClass,
+  children
+}) => {
   const classes = useStyles()
   const theme = useTheme()
-  const matchesMedium = useMediaQuery(theme.breakpoints.down('md'))
+  const matchesMedium = useMediaQuery(theme.breakpoints.down(breakdownPoint))
   return (
     <Grid
       container
       direction={matchesMedium ? 'column' : 'row'}
-      className={classes.container}
+      className={`${classes.container} ${layoutClass && layoutClass}`}
     >
       {children}
     </Grid>
   )
 }
 
-type LayoutCenterContainerProps = {
+type LayoutCenterItemProps = {
   columnsNumber: GridSize
+  breakdownPoint: Breakpoint
 }
 
-export const LayoutCenterContainer: FunctionComponent<LayoutCenterContainerProps> = ({
+export const LayoutCenterItem: FunctionComponent<LayoutCenterItemProps> = ({
   columnsNumber,
+  breakdownPoint,
   children
 }) => {
   const classes = useStyles()
   const theme = useTheme()
-  const matchesMedium = useMediaQuery(theme.breakpoints.down('md'))
+  const matchesMedium = useMediaQuery(theme.breakpoints.down(breakdownPoint))
+
   return (
     <Grid
       item

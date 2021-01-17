@@ -23,6 +23,8 @@ interface Tab {
   active: boolean
 }
 
+// TODO Refactor Header component to smaller pieces
+
 const useStyles = makeStyles((theme: Theme) => {
   return {
     toolbarMargin: {
@@ -207,6 +209,7 @@ export const Header: FunctionComponent = () => {
       if (element.to === window.location.pathname) element.active = true
     })
     setTabs(newArray)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
