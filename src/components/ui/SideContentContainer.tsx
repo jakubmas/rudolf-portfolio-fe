@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) => {
       }
     },
     containerPaddingEast: {
-      [theme.breakpoints.down('xl')]: { paddingLeft: '7rem' },
+      [theme.breakpoints.down('xl')]: { paddingLeft: '3rem' },
       [theme.breakpoints.down('md')]: { paddingLeft: 0 }
     },
     containerPaggingWest: {
@@ -136,37 +136,38 @@ export const SideContentContainer: FunctionComponent<SideContentContainerProps> 
           luctus felis.
         </Typography>
         {/* <Typography component="p" className={classes.textRegular}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        tincidunt mauris at bibendum pellentesque. Praesent lobortis varius
-        congue. In et nunc et elit ullamcorper aliquam eu sit amet nulla. Nunc
-        tempor mi quis leo interdum suscipit at in lorem. Pellentesque tristique
-        auctor erat, nec aliquet nisi lobortis eget. Duis ultrices pulvinar
-        nunc. Nulla lorem nunc, facilisis at arcu sit amet, aliquet luctus
-        felis.
-      </Typography>
-      <Typography component="p" className={classes.textRegular}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        tincidunt mauris at bibendum pellentesque. Praesent lobortis varius
-        congue. In et nunc et elit ullamcorper aliquam eu sit amet nulla. Nunc
-        tempor mi quis leo interdum suscipit at in lorem. Pellentesque tristique
-        auctor erat, nec aliquet nisi lobortis eget. Duis ultrices pulvinar
-        nunc. Nulla lorem nunc, facilisis at arcu sit amet, aliquet luctus
-        felis.
-      </Typography>
-      <Typography component="p" className={classes.textRegular}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        tincidunt mauris at bibendum pellentesque. Praesent lobortis varius
-        congue. In et nunc et elit ullamcorper aliquam eu sit amet nulla. Nunc
-        tempor mi quis leo interdum suscipit at in lorem. Pellentesque tristique
-        auctor erat, nec aliquet nisi lobortis eget. Duis ultrices pulvinar
-        nunc. Nulla lorem nunc, facilisis at arcu sit amet, aliquet luctus
-        felis.
-      </Typography> */}
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+          tincidunt mauris at bibendum pellentesque. Praesent lobortis varius
+          congue. In et nunc et elit ullamcorper aliquam eu sit amet nulla. Nunc
+          tempor mi quis leo interdum suscipit at in lorem. Pellentesque
+          tristique auctor erat, nec aliquet nisi lobortis eget. Duis ultrices
+          pulvinar nunc. Nulla lorem nunc, facilisis at arcu sit amet, aliquet
+          luctus felis.
+        </Typography>
+        <Typography component="p" className={classes.textRegular}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+          tincidunt mauris at bibendum pellentesque. Praesent lobortis varius
+          congue. In et nunc et elit ullamcorper aliquam eu sit amet nulla. Nunc
+          tempor mi quis leo interdum suscipit at in lorem. Pellentesque
+          tristique auctor erat, nec aliquet nisi lobortis eget. Duis ultrices
+          pulvinar nunc. Nulla lorem nunc, facilisis at arcu sit amet, aliquet
+          luctus felis.
+        </Typography>
+        <Typography component="p" className={classes.textRegular}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+          tincidunt mauris at bibendum pellentesque. Praesent lobortis varius
+          congue. In et nunc et elit ullamcorper aliquam eu sit amet nulla. Nunc
+          tempor mi quis leo interdum suscipit at in lorem. Pellentesque
+          tristique auctor erat, nec aliquet nisi lobortis eget. Duis ultrices
+          pulvinar nunc. Nulla lorem nunc, facilisis at arcu sit amet, aliquet
+          luctus felis.
+        </Typography> */}
       </Grid>
       {iconsSection && (
         <Grid container>
           <Grid item className={classes.bottomBorder} />
           <Grid container direction="row" className={classes.iconsContainer}>
+            {/* TODO: Change Icon Buttons, on click effect, also scroll option on side container when its full of content!! */}
             <IconButton style={{ backgroundColor: 'transparent' }}>
               <FacebookIcon />
             </IconButton>

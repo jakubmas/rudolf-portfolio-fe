@@ -39,7 +39,7 @@ export const WorkCardInformations: FunctionComponent<WorkCardInformationsProps> 
     <Grid item>
       {pairedInformation.map((text) => {
         return (
-          <Grid container>
+          <Grid container key={Math.random()}>
             <Grid item xs={4} md={3}>
               <Typography
                 gutterBottom
