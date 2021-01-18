@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useState } from 'react'
-import { makeStyles } from '@material-ui/styles'
+import { useHistory } from 'react-router-dom'
 
+import { makeStyles } from '@material-ui/styles'
 import Card from '@material-ui/core/Card'
 import { Grid } from '@material-ui/core'
 import CardContent from '@material-ui/core/CardContent'
@@ -40,6 +41,7 @@ export const WorkCard: FunctionComponent<WorkCardProps> = ({
 }) => {
   const classes = useStyles()
 
+  const history = useHistory()
   const [cardHovered, setCardHovered] = useState(false)
 
   const toggleRaised = () => {
@@ -62,6 +64,9 @@ export const WorkCard: FunctionComponent<WorkCardProps> = ({
         className={classes.cardWrapper}
         onMouseOver={toggleRaised}
         onMouseOut={toggleRaised}
+        onClick={() => {
+          history.push(`/work/session/${index}`)
+        }}
         raised={cardHovered}
       >
         <CardMedia

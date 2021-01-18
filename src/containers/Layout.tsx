@@ -1,4 +1,5 @@
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 
 import { makeStyles } from '@material-ui/styles'
 import { useTheme } from '@material-ui/core/styles'
@@ -9,7 +10,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
-    minHeight: 'calc(100vh - 64px - 64px)',
+    minHeight: 'calc(100vh - 64px - 63px)',
     padding: '0 5%',
     [theme.breakpoints.down('md')]: {
       display: 'flex',
@@ -44,6 +45,12 @@ export const LayoutContainer: FunctionComponent<LayoutContainerProps> = ({
   const classes = useStyles()
   const theme = useTheme()
   const matchesMedium = useMediaQuery(theme.breakpoints.down(breakdownPoint))
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
+
   return (
     <Grid
       container
@@ -58,11 +65,13 @@ export const LayoutContainer: FunctionComponent<LayoutContainerProps> = ({
 type LayoutCenterItemProps = {
   columnsNumber: GridSize
   breakdownPoint: Breakpoint
+  layoutClass?: string
 }
 
 export const LayoutCenterItem: FunctionComponent<LayoutCenterItemProps> = ({
   columnsNumber,
   breakdownPoint,
+  layoutClass,
   children
 }) => {
   const classes = useStyles()
@@ -73,7 +82,9 @@ export const LayoutCenterItem: FunctionComponent<LayoutCenterItemProps> = ({
     <Grid
       item
       md={matchesMedium ? 12 : columnsNumber}
-      className={classes.centerContentContainer}
+      className={`${classes.centerContentContainer} ${
+        layoutClass && layoutClass
+      }`}
     >
       {children}
     </Grid>
